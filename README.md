@@ -74,3 +74,86 @@ You should now be able to access the application at http://localhost:3000.
 > After cloning or forking the repository, be cautious when pulling or syncing with the latest changes, as this may result in breaking conflicts.
 
 Cheers! 🥂
+
+
+Table users {
+  id int [primary key]
+  first_name varchar [not null]
+  last_name varchar [not null]
+  email varchar [unique, not null]
+  password varchar [not null]
+  date_of_birth date [not null]
+  role varchar [not null, note: 'Enum: admin, recruiter, user']
+  created_at timestamp
+  updated_at timestamp
+}
+
+Table business {
+  id int [primary key]
+  name varchar [not null]
+  description text
+  website varchar [note: 'Company URL']
+  addressLine1 varchar
+  addressLine2 varchar
+  city varchar
+  state varchar
+  postal_code varchar
+  country varchar
+  phone_number varchar [not null]
+  email varchar [unique, not null]
+  logo varchar
+  banner_image varchar
+  founded_date date
+  number_of_employees int
+  industry varchar
+  user_id int [not null, ref: > users.id]
+  created_at timestamp
+  updated_at timestamp
+}
+
+
+Table leads {
+  id int [primary key]
+  business_id int [not null, ref: > business.id]
+  user_id int [not null, ref: > users.id]
+  funnel_id int [ref: > funnels.id, note: 'Optional, only if the lead comes from a sales funnel']
+  name varchar [not null]
+  email varchar [not null]
+  phone_number varchar
+  interest text [note: 'Array of strings indicating interests']
+  source varchar [not null, note: 'E.g., website, ad campaign, referral, sales funnel']
+  message text
+  status varchar [not null, note: 'Enum: new, contacted, in_progress, follow_up, converted, lost, disqualified, closed_won, closed_lost']
+  created_at timestamp
+  updated_at timestamp
+}
+
+Table templates {
+  id int [primary key]
+  name varchar [not null, unique, note: 'Name of the template']
+  description text [note: 'Details about the template']
+  preview_url varchar [note: 'URL for template preview']
+  is_default boolean [default: false, note: 'Indicates if this is a default template']
+  created_at timestamp
+  updated_at timestamp
+}
+
+Table funnels {
+  id int [primary key]
+  business_id int [not null, ref: > business.id]
+  template_id int [ref: > templates.id, note: 'The selected sales funnel template']
+  name varchar [not null]
+  description text
+  status varchar [not null, note: 'Enum: draft, active, inactive, archived']
+  hero_section text [note: 'Content for the hero section']
+  features text [note: 'Content for features section']
+  funnel_form text [note: 'Content for the funnel form section']
+  about_us text [note: 'Content for the about us section']
+  created_at timestamp
+  updated_at timestamp
+}
+    
+
+
+
+    ngrok http --url=choice-tortoise-obliging.ngrok-free.app 3000

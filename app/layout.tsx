@@ -1,10 +1,10 @@
-import Providers from '@/components/layout/providers';
 import { Toaster } from '@/components/ui/sonner';
 import type { Metadata } from 'next';
 import { Lato } from 'next/font/google';
 import NextTopLoader from 'nextjs-toploader';
 import './globals.css';
 import { ClerkProvider } from '@clerk/nextjs';
+import CustomLoader from '@/components/reload-loader';
 
 export const metadata: Metadata = {
   title: 'Next Shadcn',
@@ -22,6 +22,7 @@ export default async function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
+
   return (
     <html
       lang="en"
@@ -45,11 +46,12 @@ export default async function RootLayout({
           },
         }}
       >
-      <body >
-        <NextTopLoader showSpinner={false} />
+          <body>
+          <NextTopLoader showSpinner={false} />
           <Toaster />
+          <CustomLoader />
           {children}
-      </body>
+        </body>
       </ClerkProvider>
     </html>
   );
