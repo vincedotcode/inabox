@@ -1,15 +1,16 @@
 {
-  "name": "nextshcdndashboardstarter",
+  "name": "inabox",
   "version": "1.0.0",
   "private": true,
   "author": {
-    "name": "Kiran",
-    "url": "https://github.com/Kiranism"
+    "name": "Vince Erkadoo",
+    "url": "https://github.com/vincedotcode"
   },
   "scripts": {
     "dev": "next dev --turbo",
     "build": "next build",
     "start": "next start",
+    "postinstall": "prisma generate",
     "lint": "next lint",
     "format": "prettier . --write",
     "prepare": "husky"
