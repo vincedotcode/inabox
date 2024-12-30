@@ -10,9 +10,9 @@ import { CTA } from "@/components/landing/cta"
 import { PricingSection } from "@/components/landing/pricing"
 import { Header1 } from "@/components/landing/header"
 
-export const PAYMENT_FREQUENCIES = ["monthly", "yearly"]
+const PAYMENT_FREQUENCIES = ["monthly", "yearly"]
 
-export const TIERS = [
+const TIERS = [
     {
         id: "individuals",
         name: "Individuals",
