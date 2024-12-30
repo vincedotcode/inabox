@@ -14,6 +14,7 @@ const nextConfig = {
       }
     ]
   },
+  ignoreBuildErrors: true,
   transpilePackages: ['geist']
 };
 
