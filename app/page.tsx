@@ -133,7 +133,7 @@ export default function Home() {
                                 >
                                     <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" />
                                 </svg>
-                                <span className="text-xl font-semibold">Spend.In</span>
+                                <span className="text-xl font-semibold">Inabox</span>
                             </div>
                             <p className="text-sm text-muted-foreground">
                                 Making business expenses management easier and faster.
@@ -201,7 +201,7 @@ export default function Home() {
                         </div>
                     </div>
                     <div className="mt-12 pt-8 border-t text-center text-sm text-muted-foreground">
-                        <p>&copy; {new Date().getFullYear()} Spend.In. All rights reserved.</p>
+                        <p>&copy; {new Date().getFullYear()} Inabox. All rights reserved.</p>
                     </div>
                 </div>
             </footer>
@@ -228,7 +228,7 @@ const benefits = [
 ]
 
 const steps = [
-    'Register your Spend.In account.',
+    'Register your Inabox account.',
     'Fill in the list of your business expenses.',
     'Done, let\'s continue the work.',
 ]
