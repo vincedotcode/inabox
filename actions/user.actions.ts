@@ -6,6 +6,7 @@ const prisma = new PrismaClient();
  * Create a new user
  */
 export async function createUser(data: {
+  id: string;
   firstName: string;
   lastName: string;
   email: string;

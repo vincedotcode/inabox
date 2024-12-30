@@ -43,6 +43,7 @@ export async function POST(req: Request) {
 
     try {
       await createUser({
+        id: id || '',
         firstName: first_name || '',
         lastName: last_name || '',
         email: email_addresses[0]?.email_address || '',
