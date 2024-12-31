@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
 import { Mail, Star, CheckCircle, ArrowUp } from 'lucide-react'
@@ -8,19 +8,48 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from 
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
-import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion"
-import content from '@/content/datav2.json'
+import { EditableText } from '@/components/ui/editable-text'
+import { EditableImage } from '@/components/ui/editable-image'
+import initialContentJSON from '@/content/datav2.json'
 
-export default function Page() {
+type Content = typeof initialContentJSON
+
+type PageProps = {
+  initialContent?: Content
+  onContentChange?: (content: Content) => void
+}
+
+export default function Faceshop({ initialContent = initialContentJSON, onContentChange }: PageProps) {
+  const [content, setContent] = useState<Content>(initialContent)
   const [showBackToTop, setShowBackToTop] = useState(false)
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setShowBackToTop(window.scrollY > 300)
+    }
+    window.addEventListener('scroll', handleScroll)
+    return () => window.removeEventListener('scroll', handleScroll)
+  }, [])
 
   const scrollToTop = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' })
   }
 
-  if (typeof window !== 'undefined') {
-    window.addEventListener('scroll', () => {
-      setShowBackToTop(window.scrollY > 300)
+  const updateContent = (path: string, value: any) => {
+    setContent(prevContent => {
+      const newContent = JSON.parse(JSON.stringify(prevContent))
+      let current = newContent
+      const keys = path.split('.')
+      for (let i = 0; i < keys.length - 1; i++) {
+        current = current[keys[i]]
+      }
+      current[keys[keys.length - 1]] = value
+
+      if (onContentChange) {
+        onContentChange(newContent)
+      }
+
+      return newContent
     })
   }
 
@@ -29,16 +58,20 @@ export default function Page() {
       {/* Header */}
       <header className={`sticky top-0 z-50 w-full border-b bg-${content.header.background} backdrop-blur supports-[backdrop-filter]:bg-${content.header.backdropBackground}`}>
         <div className="container flex h-16 items-center justify-between">
-          <Image
+          <EditableImage
             src={content.header.logo}
             alt="Company Logo"
             width={150}
             height={50}
             className="object-contain"
+            onUpdate={(value) => updateContent('header.logo', value)}
           />
           <div className="flex items-center gap-2">
             <Mail className="h-4 w-4" />
-            <span>{content.header.email}</span>
+            <EditableText
+              value={content.header.email}
+              onUpdate={(value) => updateContent('header.email', value)}
+            />
           </div>
         </div>
       </header>
@@ -49,22 +82,57 @@ export default function Page() {
           <div className="grid lg:grid-cols-2 gap-12 items-center">
             <div className="space-y-6">
               <h1 className="text-4xl md:text-5xl font-bold tracking-tight">
-                {content.hero.title}{' '}
-                <span className={`text-${content.theme.colors.primary}-600`}>{content.hero.highlight}</span>{' '}
-                {content.hero.subtitle}
+                <EditableText
+                  value={content.hero.title}
+                  onUpdate={(value) => updateContent('hero.title', value)}
+                />
+                {' '}
+                <span className={`text-${content.theme.colors.primary}-600`}>
+                  <EditableText
+                    value={content.hero.highlight}
+                    onUpdate={(value) => updateContent('hero.highlight', value)}
+                  />
+                </span>
+                {' '}
+                <EditableText
+                  value={content.hero.subtitle}
+                  onUpdate={(value) => updateContent('hero.subtitle', value)}
+                />
               </h1>
-              <p className={`text-${content.theme.colors.text} text-lg`}>{content.hero.description}</p>
+              <p className={`text-${content.theme.colors.text} text-lg`}>
+                <EditableText
+                  value={content.hero.description}
+                  onUpdate={(value) => updateContent('hero.description', value)}
+                />
+              </p>
               <ul className="space-y-4">
                 {content.hero.features.map((feature, index) => (
                   <li key={index} className="flex items-center gap-2">
                     <CheckCircle className={`h-5 w-5 text-${content.theme.colors.primary}-600`} />
-                    <span>{feature}</span>
+                    <EditableText
+                      value={feature}
+                      onUpdate={(value) => {
+                        const newFeatures = [...content.hero.features]
+                        newFeatures[index] = value
+                        updateContent('hero.features', newFeatures)
+                      }}
+                    />
                   </li>
                 ))}
               </ul>
               <div className={`bg-${content.hero.discount.background} text-${content.hero.discount.text_color} p-8 rounded-lg`}>
-                <h3 className="text-3xl font-bold mb-2">{content.hero.discount.text}</h3>
-                <p>{content.hero.discount.subtext}</p>
+                <h3 className="text-3xl font-bold mb-2">
+                  <EditableText
+                    value={content.hero.discount.text}
+                    onUpdate={(value) => updateContent('hero.discount.text', value)}
+                  />
+                </h3>
+                <p>
+                  <EditableText
+                    value={content.hero.discount.subtext}
+                    onUpdate={(value) => updateContent('hero.discount.subtext', value)}
+                  />
+                </p>
               </div>
               <Dialog>
                 <DialogTrigger asChild>
@@ -102,95 +170,45 @@ export default function Page() {
                 </DialogContent>
               </Dialog>
             </div>
-            <div className="relative aspect-square">
-              <Image
+            <div className="relative w-full h-[600px]">
+              <EditableImage
                 src={content.hero.image}
                 alt="Product Image"
-                fill
-                className="object-cover rounded-lg"
+                width={600}
+                height={600}
+                className="rounded-lg"
+                onUpdate={(value) => updateContent('hero.image', value)}
               />
             </div>
           </div>
         </section>
 
-        {/* Testimonials Section */}
+        {/* Apply Form Section */}
         <section className="mb-20">
-          <h2 className="text-3xl font-bold text-center mb-12">{content.testimonials.title}</h2>
-          <div className="grid md:grid-cols-3 gap-8">
-            {content.testimonials.items.map((testimonial) => (
-              <div
-                key={testimonial.id}
-                className={`p-6 rounded-lg border-2 border-${testimonial.borderColor}`}
-              >
-                <div className="flex flex-col items-center text-center gap-4">
-                  <Image
-                    src={testimonial.image}
-                    alt={testimonial.name}
-                    width={80}
-                    height={80}
-                    className="rounded-full"
-                  />
-                  <p className={`text-${content.theme.colors.text}`}>{testimonial.quote}</p>
-                  <p className="font-medium">{testimonial.name}</p>
-                </div>
+          <div className="p-8 border rounded-lg shadow-lg">
+            <h2 className="text-2xl font-bold mb-4">Apply Now</h2>
+            <form className="grid gap-4">
+              <div className="grid gap-2">
+                <Label htmlFor="apply-name">Name</Label>
+                <Input id="apply-name" placeholder="Enter your name" />
               </div>
-            ))}
+              <div className="grid gap-2">
+                <Label htmlFor="apply-email">Email</Label>
+                <Input id="apply-email" type="email" placeholder="Enter your email" />
+              </div>
+              <div className="grid gap-2">
+                <Label htmlFor="apply-phone">Phone</Label>
+                <Input id="apply-phone" type="tel" placeholder="Enter your phone number" />
+              </div>
+              <div className="grid gap-2">
+                <Label htmlFor="apply-message">Message</Label>
+                <textarea id="apply-message" placeholder="Enter your message" className="p-2 border rounded-lg"></textarea>
+              </div>
+              <Button type="submit" className={`bg-${content.theme.buttons.primary.background} hover:bg-${content.theme.buttons.primary.hover}`}>Submit Application</Button>
+            </form>
           </div>
         </section>
 
-        {/* Reviews Section */}
-        <section className="mb-20">
-          <div className="grid lg:grid-cols-2 gap-12 items-center">
-            <div className="relative aspect-square">
-              <Image
-                src={content.reviews.image}
-                alt="Product Display"
-                fill
-                className="object-cover rounded-lg"
-              />
-            </div>
-            <div className="space-y-6">
-              {content.reviews.items.map((review) => (
-                <div key={review.id} className="bg-white p-6 rounded-lg shadow-sm">
-                  <h3 className="text-xl font-bold mb-2">{review.title}</h3>
-                  <p className={`text-${content.theme.colors.text} mb-4`}>{review.review}</p>
-                  <div className="flex items-center justify-between">
-                    <div className="flex items-center gap-2">
-                      <div className="flex">
-                        {Array.from({ length: review.rating }).map((_, i) => (
-                          <Star key={i} className={`h-5 w-5 fill-${review.starColor} text-${review.starColor}`} />
-                        ))}
-                      </div>
-                      <span className="font-medium">{review.author}</span>
-                    </div>
-                    {review.verified && (
-                      <div className={`flex items-center gap-1 text-${review.verifiedColor}`}>
-                        <CheckCircle className="h-4 w-4" />
-                        <span className="text-sm">Verified Buyer</span>
-                      </div>
-                    )}
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-        </section>
-
-        {/* FAQ Section */}
-        <section className="mb-20">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold mb-4">{content.faq.title}</h2>
-            <p className={`text-${content.theme.colors.text}`}>{content.faq.subtitle}</p>
-          </div>
-          <Accordion type="single" collapsible className="max-w-3xl mx-auto">
-            {content.faq.questions.map((faq) => (
-              <AccordionItem key={faq.id} value={`item-${faq.id}`}>
-                <AccordionTrigger>{faq.question}</AccordionTrigger>
-                <AccordionContent>{faq.answer}</AccordionContent>
-              </AccordionItem>
-            ))}
-          </Accordion>
-        </section>
       </main>
 
       {/* Footer */}
@@ -203,11 +221,23 @@ export default function Page() {
                 href={link.url} 
                 className={`hover:text-${link.hoverColor}`}
               >
-                {link.text}
+                <EditableText
+                  value={link.text}
+                  onUpdate={(value) => {
+                    const newLinks = [...content.footer.links]
+                    newLinks[index] = { ...newLinks[index], text: value }
+                    updateContent('footer.links', newLinks)
+                  }}
+                />
               </Link>
             ))}
           </div>
-          <p className="text-gray-400">{content.footer.copyright}</p>
+          <p className="text-gray-400">
+            <EditableText
+              value={content.footer.copyright}
+              onUpdate={(value) => updateContent('footer.copyright', value)}
+            />
+          </p>
         </div>
       </footer>
 
@@ -223,4 +253,3 @@ export default function Page() {
     </div>
   )
 }
-
