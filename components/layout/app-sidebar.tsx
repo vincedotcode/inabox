@@ -177,7 +177,7 @@ export default function AppSidebar() {
                     </Avatar>
                     <div className="grid flex-1 text-left text-sm leading-tight">
                       <span className="truncate font-semibold">
-                        {session?.user?.fullName || ''}
+                        {session?.user?.fullName || 'Guest'}
                       </span>
                       <span className="truncate text-xs">
                         {' '}

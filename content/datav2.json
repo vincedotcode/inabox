@@ -1,0 +1,167 @@
+{
+    "theme": {
+      "colors": {
+        "primary": "red",
+        "secondary": "blue",
+        "accent": "green",
+        "background": "blue-50",
+        "text": "gray-600",
+        "heading": "gray-900"
+      },
+      "buttons": {
+        "primary": {
+          "background": "pink-600",
+          "hover": "red-700",
+          "text": "white"
+        },
+        "secondary": {
+          "background": "red",
+          "hover": "gray-100",
+          "text": "gray-900",
+          "border": "gray-200"
+        }
+      }
+    },
+    "header": {
+      "logo": "https://placehold.co/150x50",
+      "email": "support@yourbrand.com",
+      "background": "white/95",
+      "backdropBackground": "white/60"
+    },
+    "hero": {
+      "title": "NATURAL BEAUTIFUL VIEWS",
+      "highlight": "WITH THE PRODUCT CIRCUITS THAT WE",
+      "subtitle": "OFFER FROM NATURE",
+      "description": "Praesent pellentesque nec odio accumsan dignissim. Fusce mattis eget urna at luctus. consectetur adipiscing elit.In eget accumsan enim. Vivamus mi lectus, aliquet eget",
+      "features": [
+        "Donec molestie libero nec enim pharetra vulputate.",
+        "Donec molestie libero nec enim pharetra vulputate.",
+        "Donec molestie libero nec enim pharetra vulputate.",
+        "Donec molestie libero nec enim pharetra vulputate."
+      ],
+      "discount": {
+        "amount": "30%",
+        "text": "Get 30% Instant Discount",
+        "subtext": "Premium Quality Without Compromise",
+        "background": "pink-600",
+        "text_color": "white"
+      },
+      "image": "https://placehold.co/600x600"
+    },
+    "testimonials": {
+      "title": "Here are some good words for Us",
+      "items": [
+        {
+          "id": 1,
+          "name": "Jane Doe",
+          "image": "https://placehold.co/100x100",
+          "quote": "Sed malesuada maximus dolor at pellentesque. Suspendisse potenti. Donec rhoncus lorem quis fringilla aliquet. Nullam quis pelle",
+          "borderColor": "pink-400"
+        },
+        {
+          "id": 2,
+          "name": "Jane Doe",
+          "image": "https://placehold.co/100x100",
+          "quote": "Sed malesuada maximus dolor at pellentesque. Suspendisse potenti. Donec rhoncus lorem quis fringilla aliquet. Nullam quis pelle",
+          "borderColor": "purple-400"
+        },
+        {
+          "id": 3,
+          "name": "Jane Doe",
+          "image": "https://placehold.co/100x100",
+          "quote": "Sed malesuada maximus dolor at pellentesque. Suspendisse potenti. Donec rhoncus lorem quis fringilla aliquet. Nullam quis pelle",
+          "borderColor": "yellow-400"
+        }
+      ]
+    },
+    "reviews": {
+      "image": "https://placehold.co/600x600",
+      "items": [
+        {
+          "id": 1,
+          "title": "Awesome Product",
+          "review": "Lorem ipsum dolor sit amet, consectetur adipis cing elit. Maec enas id nibh non libero ullamcorper fringilla. Praesent pellent esque nec odio Fusce mattis eget urna at luctus.",
+          "author": "Jhon Doe",
+          "rating": 5,
+          "verified": true,
+          "starColor": "yellow-400",
+          "verifiedColor": "green-600"
+        },
+        {
+          "id": 2,
+          "title": "Very Happy So Far!",
+          "review": "Lorem ipsum dolor sit amet, consectetur adipis cing elit. Maec enas id nibh non libero ullamcorper fringilla. Praesent pellent esque nec odio Fusce mattis eget urna at luctus.",
+          "author": "Jhon Doe",
+          "rating": 5,
+          "verified": true,
+          "starColor": "yellow-400",
+          "verifiedColor": "green-600"
+        },
+        {
+          "id": 3,
+          "title": "Awesome Keto Shake!",
+          "review": "Lorem ipsum dolor sit amet, consectetur adipis cing elit. Maec enas id nibh non libero ullamcorper fringilla. Praesent pellent esque nec odio Fusce mattis eget urna at luctus.",
+          "author": "Jhon Doe",
+          "rating": 5,
+          "verified": true,
+          "starColor": "yellow-400",
+          "verifiedColor": "green-600"
+        }
+      ]
+    },
+    "faq": {
+      "title": "FREQUENTLY ASKED QUESTIONS",
+      "subtitle": "You Can Message is or Email us at support@yourbrand.com",
+      "questions": [
+        {
+          "id": 1,
+          "question": "Integer ultricies lectus egestas eros cursus semper.",
+          "answer": "Lorem ipsum dolor sit amet, consectetur adipis. Maec enas id nibh non. Lorem ipsum dolor sit amet, consectetur adipis. Maec enas id nibh non. Lorem ipsum dolor sit amet, consectetur adipis. Maec enas id nibh non. Lorem ipsum dolor sit amet, consectetur adipis. Maec enas id nibh non."
+        },
+        {
+          "id": 2,
+          "question": "Integer ultricies lectus egestas eros cursus semper.",
+          "answer": "Lorem ipsum dolor sit amet, consectetur adipis. Maec enas id nibh non."
+        },
+        {
+          "id": 3,
+          "question": "Integer ultricies lectus egestas eros cursus semper.",
+          "answer": "Lorem ipsum dolor sit amet, consectetur adipis. Maec enas id nibh non."
+        },
+        {
+          "id": 4,
+          "question": "Integer ultricies lectus egestas eros cursus semper.",
+          "answer": "Lorem ipsum dolor sit amet, consectetur adipis. Maec enas id nibh non."
+        },
+        {
+          "id": 5,
+          "question": "Integer ultricies lectus egestas eros cursus semper.",
+          "answer": "Lorem ipsum dolor sit amet, consectetur adipis. Maec enas id nibh non."
+        }
+      ]
+    },
+    "footer": {
+      "background": "gray-900",
+      "text": "white",
+      "copyright": "© Copyright 2024 YourBrand.com-All rights reserved",
+      "links": [
+        {
+          "text": "Privacy Policy",
+          "url": "#",
+          "hoverColor": "pink-400"
+        },
+        {
+          "text": "Terms & Conditions",
+          "url": "#",
+          "hoverColor": "pink-400"
+        }
+      ]
+    },
+    "backToTop": {
+      "background": "pink-600",
+      "hover": "pink-700",
+      "text": "white"
+    }
+  }
+  
+  
